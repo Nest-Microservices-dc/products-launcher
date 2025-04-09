@@ -21,70 +21,70 @@ services:
       - PORT=${CLIENT_GATEWAY_INTERNAL_PORT}
       - NATS_SERVERS=${NATS_SERVERS}
 
-#   # PRODUCTS MICROSERVICE
-#   products-ms:
-#     depends_on:
-#       products-db:
-#         condition: service_healthy
-#     build: ./products-ms
-#     container_name: products-ms
-#     volumes:
-#       - ./products-ms/src:/usr/src/app/src
-#     command: sh -c "npx prisma migrate dev --name init && npm run start:dev"
-#     environment:
-#       - PORT=${PRODUCTS_MICROSERVICE_PORT}
-#       - DATABASE_URL=${PRODUCTS_DATABASE_URL}
-#       - NATS_SERVERS=${NATS_SERVERS}
-# 
-#   # ORDERS MICROSERVICE
-#   orders-ms:
-#     depends_on:
-#       orders-db:
-#         condition: service_healthy
-#     build: ./orders-ms
-#     container_name: orders-ms
-#     volumes:
-#       - ./orders-ms/src:/usr/src/app/src
-#     command: sh -c "npx prisma migrate dev --name init && npm run start:dev"
-#     environment:
-#       - PORT=${ORDERS_MICROSERVICE_PORT}
-#       - DATABASE_URL=${ORDERS_DATABASE_URL}
-#       - NATS_SERVERS=${NATS_SERVERS}
-# 
-#   # ORDERS DATABASE
-#   orders-db:
-#     container_name: orders_database
-#     image: postgres:latest
-#     restart: always
-#     volumes:
-#       - ./postgres/orders:/var/lib/postgresql/data
-#     ports:
-#       - "${ORDERS_DATABASE_EXPOSED_PORT}:${ORDERS_DATABASE_INTERNAL_PORT}"
-#     environment:
-#       - POSTGRES_USER=${POSTGRES_USER}
-#       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-#       - POSTGRES_DB=${ORDERS_DB}
-#     healthcheck:
-#       test: ["CMD-SHELL", "pg_isready -U postgres"]
-#       interval: 5s
-#       timeout: 3s
-#       retries: 5
-# 
-#   # PRODUCTS DATABASE
-#   products-db:
-#     container_name: products_database
-#     image: postgres:latest
-#     restart: always
-#     volumes:
-#       - ./postgres/products:/var/lib/postgresql/data
-#     ports:
-#       - "${PRODUCTS_DATABASE_EXPOSED_PORT}:${PRODUCTS_DATABASE_INTERNAL_PORT}"
-#     environment:
-#       - POSTGRES_USER=${POSTGRES_USER}
-#       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-#       - POSTGRES_DB=${PRODUCTS_DB}
-#     healthcheck:
-#       test: ["CMD-SHELL", "pg_isready -U postgres"]
-#       interval: 5s
-#       timeout: 3s
-#       retries: 5
+  # PRODUCTS MICROSERVICE
+  products-ms:
+    depends_on:
+      products-db:
+        condition: service_healthy
+    build: ./products-ms
+    container_name: products-ms
+    volumes:
+      - ./products-ms/src:/usr/src/app/src
+    command: sh -c "npx prisma migrate dev --name init && npm run start:dev"
+    environment:
+      - PORT=${PRODUCTS_MICROSERVICE_PORT}
+      - DATABASE_URL=${PRODUCTS_DATABASE_URL}
+      - NATS_SERVERS=${NATS_SERVERS}
+
+  # ORDERS MICROSERVICE
+  orders-ms:
+    depends_on:
+      orders-db:
+        condition: service_healthy
+    build: ./orders-ms
+    container_name: orders-ms
+    volumes:
+      - ./orders-ms/src:/usr/src/app/src
+    command: sh -c "npx prisma migrate dev --name init && npm run start:dev"
+    environment:
+      - PORT=${ORDERS_MICROSERVICE_PORT}
+      - DATABASE_URL=${ORDERS_DATABASE_URL}
+      - NATS_SERVERS=${NATS_SERVERS}
+
+  # ORDERS DATABASE
+  orders-db:
+    container_name: orders_database
+    image: postgres:latest
+    restart: always
+    volumes:
+      - ./postgres/orders:/var/lib/postgresql/data
+    ports:
+      - "${ORDERS_DATABASE_EXPOSED_PORT}:${ORDERS_DATABASE_INTERNAL_PORT}"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${ORDERS_DB}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  # PRODUCTS DATABASE
+  products-db:
+    container_name: products_database
+    image: postgres:latest
+    restart: always
+    volumes:
+      - ./postgres/products:/var/lib/postgresql/data
+    ports:
+      - "${PRODUCTS_DATABASE_EXPOSED_PORT}:${PRODUCTS_DATABASE_INTERNAL_PORT}"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${PRODUCTS_DB}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
